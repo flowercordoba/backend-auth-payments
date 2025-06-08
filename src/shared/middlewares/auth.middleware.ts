@@ -2,8 +2,8 @@
 // Auth middleware 
 import { Request, Response, NextFunction } from 'express';
 
-import { FirebaseDecodedToken } from '../types/types';
 import admin from '../firebase/admin';
+import { FirebaseDecodedToken } from '../../types/types';
 
 export interface AuthenticatedRequest extends Request {
   firebaseUser?: FirebaseDecodedToken;

@@ -5,7 +5,7 @@ dotenv.config({});
 class Config {
   public JWT_TOKEN: string | undefined;
   public NODE_ENV: string | undefined;
-  public PORT: string | number;
+  public PORT:  number;
   public STRIPE_SECRET_KEY: string | undefined;
   public STRIPE_WEBHOOK_SECRET: string | undefined;
   public STRIPE_WEBHOOK_SECRET2: string | undefined;
@@ -14,7 +14,7 @@ class Config {
   constructor() {
     this.JWT_TOKEN = process.env.JWT_TOKEN || "1234";
     this.NODE_ENV = process.env.NODE_ENV || "";
-    this.PORT = process.env.PORT || "";
+    this.PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
     this.STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || "";
     this.STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
     this.STRIPE_WEBHOOK_SECRET2 = process.env.STRIPE_WEBHOOK_SECRET2 || "";
