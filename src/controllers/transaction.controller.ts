@@ -1,12 +1,22 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { AuthenticatedRequest } from '../middlewares/auth.middleware'; // ruta correcta
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const getUserTransactions = async (req: Request, res: Response) => {
-  const { userId } = req.params;
-
+export const getUserTransactions = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
   try {
+    if (!req.firebaseUser) {
+      res.status(401).json({ error: 'No autorizado' });
+      return;
+    }
+
+    // Obtén userId desde el token Firebase
+    const userId = req.firebaseUser.uid;
+
     const transactions = await prisma.transaction.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
