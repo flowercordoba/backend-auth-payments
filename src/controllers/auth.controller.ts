@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import admin from "../firebase/admin";
+import admin from "../shared/firebase/admin";
 import { findOrCreateUser } from "../services/user.service";
 
 export const verifyFirebaseToken = async (req: Request, res: Response) => {

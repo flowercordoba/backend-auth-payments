@@ -2,10 +2,20 @@
   "name": "backend-auth-payments",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn src/server.ts"
+    "prestart": "rm -rf node_modules && npm install",
+    "start": "npm run build && npm run start:prod",
+    "stop": "pm2 stop all",
+    "delete": "pm2 delete all",
+    "dev": "nodemon --exec ts-node src/app.ts",
+    "lint:check": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint 'src/**/*.ts' --fix",
+    "prettier:check": "prettier --check 'src/**/*.{ts,json}'",
+    "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
+    "test": "jest --coverage=true -w=1 --forceExit --detectOpenHandles --watchAll=false",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && npm run copy:ejs",
+    "start:prod": "node build/src/app"
   },
   "keywords": [],
   "author": "",
@@ -14,15 +24,18 @@
   "dependencies": {
     "@prisma/client": "^6.9.0",
     "@prisma/extension-accelerate": "^2.0.1",
+    "bunyan": "^1.8.15",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0",
+    "express": "^4.21.2",
+    "express-async-errors": "^3.1.1",
     "firebase-admin": "^13.4.0",
     "jsonwebtoken": "^9.0.2",
     "prisma": "^6.9.0",
     "stripe": "^18.2.1"
   },
   "devDependencies": {
+    "@types/bunyan": "^1.8.11",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jest": "^29.5.14",
