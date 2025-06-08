@@ -1,5 +1,6 @@
-import express, { Express } from 'express';
+import './shared/prisma/prisma.setup'; 
 
+import express, { Express } from 'express';
 import Logger from 'bunyan';
 import { config } from './config';
 import { WsServer } from './server';
